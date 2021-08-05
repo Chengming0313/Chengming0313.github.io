@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>第一章、计算机系统漫游 - 个人博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="个人博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="个人博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="计算机系统由硬件和系统软件组成，它们共同工作来运行应用程序。 这一章通过研究hello.c来介绍计算机系统的主要概念和主题。"><meta property="og:type" content="blog"><meta property="og:title" content="第一章、计算机系统漫游"><meta property="og:url" content="http://example.com/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/"><meta property="og:site_name" content="个人博客"><meta property="og:description" content="计算机系统由硬件和系统软件组成，它们共同工作来运行应用程序。 这一章通过研究hello.c来介绍计算机系统的主要概念和主题。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/cover/csapp.jpg"><meta property="article:published_time" content="2021-08-04T12:23:45.000Z"><meta property="article:modified_time" content="2021-08-05T03:51:41.155Z"><meta property="article:author" content="Tang Chengming"><meta property="article:tag" content="计算机系统"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/cover/csapp.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/"},"headline":"第一章、计算机系统漫游","image":["http://example.com/cover/csapp.jpg"],"datePublished":"2021-08-04T12:23:45.000Z","dateModified":"2021-08-05T03:51:41.155Z","author":{"@type":"Person","name":"Tang Chengming"},"description":"计算机系统由硬件和系统软件组成，它们共同工作来运行应用程序。 这一章通过研究hello.c来介绍计算机系统的主要概念和主题。"}</script><link rel="canonical" href="http://example.com/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/googlecode.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">ChengmingTang个人博客</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">档案</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/Chengming0313"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/cover/csapp.jpg" alt="第一章、计算机系统漫游"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-08-04T12:23:45.000Z" title="2021/8/4 下午8:23:45">2021-08-04</time>发表</span><span class="level-item"><time dateTime="2021-08-05T03:51:41.155Z" title="2021/8/5 上午11:51:41">2021-08-05</time>更新</span><span class="level-item"> Tang Chengming </span><span class="level-item"><a class="link-muted" href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">深入理解计算机系统</a></span><span class="level-item">17 分钟读完 (大约2563个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">第一章、计算机系统漫游</h1><div class="content"><p>计算机系统由硬件和系统软件组成，它们共同工作来运行应用程序。</p>
+<p>这一章通过研究<code>hello.c</code>来介绍计算机系统的主要概念和主题。</p>
+<span id="more"></span>
+
+<h1 id="1-hello-c"><a href="#1-hello-c" class="headerlink" title="1 hello.c"></a>1 hello.c</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello, world\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-计算机系统中信息的表示"><a href="#2-计算机系统中信息的表示" class="headerlink" title="2 计算机系统中信息的表示"></a>2 计算机系统中信息的表示</h1><ul>
+<li>计算机系统中的信息就是<strong>二进制位串+上下文（解读方式）</strong><ul>
+<li>计算机系统中的所有信息都是以一串二进制位表示的，在不同的上下文中，同一个二进制位串会被解读成不同的信息。</li>
+<li>例如<code>11111111</code>，如果计算机认为它是8位无符号数，则被解读为<code>255</code>，如果计算机认为它是8位带符号数，则被解读为<code>-1</code>。</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-hello-c的编译过程"><a href="#3-hello-c的编译过程" class="headerlink" title="3 hello.c的编译过程"></a>3 <code>hello.c</code>的编译过程</h1><p><code>unix</code>上通过<strong>编译器驱动程序</strong>完成源文件到二进制可执行目标文件的转换。</p>
+<p>示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o hello hello.c</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译过程的4个阶段"><a href="#编译过程的4个阶段" class="headerlink" title="编译过程的4个阶段"></a>编译过程的4个阶段</h2><p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/01.png" alt="编译过程的四个阶段"></p>
+<ul>
+<li><p>预处理阶段：进行一些预处理工作，修改<code>hello.c</code>得到另一个c源文件<code>hello.i</code>。</p>
+</li>
+<li><p>编译阶段：生成关于源文件<strong>汇编语言版本</strong>的文本文件<code>hello.s</code>。</p>
+</li>
+<li><p>汇编阶段：生成<strong>可重定位的二进制目标文件</strong><code>hello.o</code>。</p>
+</li>
+<li><p>链接阶段：生成最终的<strong>二进制可执行目标文件</strong><code>hello</code>。</p>
+</li>
+</ul>
+<h1 id="4-系统的硬件组成"><a href="#4-系统的硬件组成" class="headerlink" title="4 系统的硬件组成"></a>4 系统的硬件组成</h1><ul>
+<li><p>计算机系统的硬件组成包括：<strong>总线</strong>、<strong>中央处理器（CPU）</strong>、<strong>内存（主存）</strong>、<strong>I/O设备</strong>。</p>
+</li>
+<li><p><strong>磁盘</strong>以及<strong>网络</strong>都可以看成一个<strong>I/O设备</strong>。</p>
+</li>
+</ul>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/02.png" alt="计算机系统的硬件组成"></p>
+<ul>
+<li><p><strong>总线</strong>：负责在系统的各个部分之间传输定长的字节块（字）。</p>
+<ul>
+<li><strong>字</strong>是一个基本的系统参数，现在大多数系统的字长都是8个字节（64位）。</li>
+<li>类别：<strong>I/O</strong>总线、<strong>系统总线</strong>、<strong>内存总线</strong></li>
+</ul>
+</li>
+<li><p><strong>中央处理器（CPU）</strong>：负责执行存储在内存中的指令，包括<strong>PC</strong>、<strong>ALU</strong>、<strong>寄存器文件</strong>。</p>
+<ul>
+<li><strong>程序计数器（PC）</strong>：大小为一个字的寄存器，保存着下一条将要执行的机器指令的地址。</li>
+<li><strong>算术/逻辑单元（ALU）</strong>：CPU的执行(算术运算、逻辑运算)单元。</li>
+<li><strong>寄存器文件</strong>：由若干个大小为一个字的寄存器组成，每个寄存器都有一个唯一的名字。</li>
+</ul>
+</li>
+<li><p><strong>内存</strong>：一个<strong>临时存储设备</strong>，CPU执行程序时，负责存储程序以及程序产生的数据。</p>
+<ul>
+<li>物理结构：由一组<strong>DRAM</strong>芯片组成</li>
+<li>逻辑结构：线性字节数组，内存中的每个字节都与一个<strong>地址</strong>唯一对应。</li>
+</ul>
+</li>
+<li><p><strong>I/O</strong>设备：输入/输出设备，常用来与外界交换信息（显示器、键盘、网络设备、磁盘）。</p>
+<ul>
+<li>每个I/O设备都是通过<strong>适配器</strong>或者<strong>控制器</strong>和I/O总线交换信息。</li>
+</ul>
+</li>
+</ul>
+<h2 id="CPU工作流程的简单理解"><a href="#CPU工作流程的简单理解" class="headerlink" title="CPU工作流程的简单理解"></a>CPU工作流程的简单理解</h2><p>从系统通电到断电，CPU一直在重复一个简单的流程。</p>
+<ul>
+<li><p>从内存中取出<code>PC</code>指向的机器指令。</p>
+</li>
+<li><p>对该指令进行解释，执行该指令指示的简单操作.</p>
+</li>
+<li><p>更新PC，使其指向下一条要执行的命令。</p>
+</li>
+</ul>
+<h2 id="运行hello的简单流程"><a href="#运行hello的简单流程" class="headerlink" title="运行hello的简单流程"></a>运行<code>hello</code>的简单流程</h2><ul>
+<li><p>键盘上输入<code>./hello</code>，<code>shell</code>将字符逐一读入寄存器，再把它们放入内存。</p>
+</li>
+<li><p>当读取到回车字符，命令的输入结束，<code>shell</code>程序通过一系列指令从磁盘将二进制的可执行目标文件<code>hello</code>复制到CPU。</p>
+<ul>
+<li>一般情况，数据需要通过寄存器才能往内存写入数据，而计算机系统通过<strong>DMA技术</strong>可以直接将数据从磁盘写入到内存。</li>
+</ul>
+</li>
+<li><p>一旦<code>hello</code>被加载到内存，CPU就开始执行<code>hello</code>内的机器指令，通过寄存器向显示器写入”hello, world\n”。</p>
+<ul>
+<li>“hello world\n”的转移路线：磁盘 -&gt; 内存 -&gt; 寄存器 -&gt; 显示器</li>
+</ul>
+</li>
+</ul>
+<h1 id="5-计算机系统存储器的层次结构"><a href="#5-计算机系统存储器的层次结构" class="headerlink" title="5 计算机系统存储器的层次结构"></a>5 计算机系统存储器的层次结构</h1><h2 id="5-1-高速缓存的设计"><a href="#5-1-高速缓存的设计" class="headerlink" title="5.1 高速缓存的设计"></a>5.1 高速缓存的设计</h2><p>在计算机系统运行的过程中，需要将<strong>字节块</strong>通过总线在不同的地方之间来回搬运（寄存器、内存、CPU、I/O设备）。</p>
+<p>而不同的存储器之间的访问速度差距很大，例如寄存器的访问速度远远高于内存，这就导致当CPU执行完一条指令，从内存读取下一条指令需要等待。这就导致CPU运行时的时间消耗了一大部分在读取指令上。</p>
+<p>为了加快CPU从内存读取字节块的速度，在CPU与内存之间引入了<strong>L1, L2, L3高速缓存</strong>用来存放CPU近期最有可能用到的信息。</p>
+<p><strong>高速缓存不是一个特定的部件，它是一种设计思想，例如寄存器文件可以看作L1的高速缓存，L1又可以看作L2的高速缓存</strong></p>
+<h2 id="5-2-层次结构特点"><a href="#5-2-层次结构特点" class="headerlink" title="5.2 层次结构特点"></a>5.2 层次结构特点</h2><p>越往上，存储器的访问速度越快，容量越小，每字节存储单位的造价越高。</p>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/03.png" alt="计算机系统存储器层次示例"></p>
+<p><strong>上一层的存储器可以看作下一层的高速缓存。</strong></p>
+<h1 id="6-操作系统（OS）"><a href="#6-操作系统（OS）" class="headerlink" title="6 操作系统（OS）"></a>6 操作系统（OS）</h1><ul>
+<li><p>操作系统是在系统硬件和应用程序中间插入的软件层。</p>
+</li>
+<li><p>所有的应用程序都不会直接访问硬件，而是通过操作系统提供的服务来访问以及操作系统的硬件设备。</p>
+</li>
+</ul>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/04.png" alt="系统分层"></p>
+<h2 id="6-1-操作系统的功能"><a href="#6-1-操作系统的功能" class="headerlink" title="6.1 操作系统的功能"></a>6.1 操作系统的功能</h2><p>操作系统通过对硬件设备进行抽象，来完成两个主要功能。</p>
+<ul>
+<li><p>防止硬件被失控的应用程序滥用。</p>
+</li>
+<li><p>提供一种简单一致的机制来控制复杂庞大的低级硬件设置。</p>
+</li>
+</ul>
+<h2 id="6-2-操作系统提供的抽象表示"><a href="#6-2-操作系统提供的抽象表示" class="headerlink" title="6.2 操作系统提供的抽象表示"></a>6.2 操作系统提供的抽象表示</h2><p>操作系统提供的抽象概念：<strong>进程</strong>、<strong>虚拟内存</strong>、<strong>文件</strong>。</p>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/05.png" alt="操作系统提供的抽象表示"></p>
+<h2 id="6-3-进程"><a href="#6-3-进程" class="headerlink" title="6.3 进程"></a>6.3 进程</h2><ul>
+<li><p>进程是操作系统对一个正在运行的程序的抽象，通俗说<strong>进程就是一个活着的程序</strong>。</p>
+</li>
+<li><p>因为进程是一个正在运行的程序，那么它就有自己的上下文（PC和寄存器文件的当前值、内存的当前值）。</p>
+</li>
+<li><p>为了使得多个进程能够同时运行，<strong>操作系统内核</strong>需要在不同的进程之间进行切换。</p>
+<ul>
+<li>操作系统内核不是一个独立的进程，是系统管理全部进程的代码和数据结构的集合，它常驻内存。</li>
+<li>进程切换会导致<strong>上下文切换</strong>：操作系统保存旧进程的上下文，操作系统恢复新进程的上下文。</li>
+<li>上下文切换由操作系统负责，是内核代码的一部分，因此在进行上下文切换之前，旧进程需要将控制权交还给操作系统，切换完成之后，操作系统再把控制权移交给新进程。</li>
+</ul>
+</li>
+</ul>
+<p><code>shell</code>程序执行<code>hello</code>会导致进程的切换，如图：<br><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/06.png" alt="进程切换示例"></p>
+<h2 id="6-4-线程"><a href="#6-4-线程" class="headerlink" title="6.4 线程"></a>6.4 线程</h2><p>传统的进程调度模型中，进程扮演者两种角色：</p>
+<ul>
+<li><p>调度、执行的基本单位</p>
+</li>
+<li><p>资源所有权拥有者</p>
+</li>
+</ul>
+<p>线程模型中，每个进程都有着若干个线程。</p>
+<ul>
+<li><p>进程只是资源所有权的拥有者，资源由进程下的所有线程共享。</p>
+</li>
+<li><p>线程取代进程成为操作系统内核调度的基本单位。</p>
+</li>
+</ul>
+<h3 id="两个优点："><a href="#两个优点：" class="headerlink" title="两个优点："></a>两个优点：</h3><ul>
+<li><p>线程的切换开销更小。</p>
+</li>
+<li><p>线程之间通信比进程之间通信效率更高。</p>
+</li>
+</ul>
+<h2 id="6-4-虚拟内存"><a href="#6-4-虚拟内存" class="headerlink" title="6.4 虚拟内存"></a>6.4 虚拟内存</h2><ul>
+<li><p>虚拟内存是对程序存储器的抽象。</p>
+</li>
+<li><p>虚拟内存提供一种假象：每个进程独占地使用系统内存。</p>
+</li>
+</ul>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/07.png" alt="Linux进程虚拟地址空间"></p>
+<h2 id="6-5-文件"><a href="#6-5-文件" class="headerlink" title="6.5 文件"></a>6.5 文件</h2><ul>
+<li><p>文件是对I/O设备的抽象。</p>
+</li>
+<li><p>文件本质就是字节序列，所有的I/O设备都可以看成文件，都可以使用操作系统提供的统一系统函数调用来读写字节块。</p>
+</li>
+</ul>
+<h1 id="7-重要主题"><a href="#7-重要主题" class="headerlink" title="7 重要主题"></a>7 重要主题</h1><h2 id="7-1-Amdahl定律"><a href="#7-1-Amdahl定律" class="headerlink" title="7.1 Amdahl定律"></a>7.1 Amdahl定律</h2><p>当我们对系统的某个部分加速时，对系统整体性能的影响取决于该部分的重要性以及性能提升幅度。</p>
+<p>假设 $T_{old}$为系统原始耗时，$T_{new}$为某个部分优化后的系统耗时, $\alpha$为该部分耗时占系统耗时的比重，$k$为该部分性能提升比例。</p>
+<p>易得该部分原始耗时为$\alpha T_{old}$，优化后耗时为$\frac {\alpha T_{old}} {k}$</p>
+<p>因此<br>    $$T_new = (1-\alpha)T_{old} + \frac {\alpha T_{old}} {k}$$<br>加速比$S=T_{old} / T_{new}$等于<br>    $$S = \frac 1 {(1-\alpha) + \frac \alpha k}$$</p>
+<p>$k$趋向$\infty$时<br>    $$S_{\infty} = \frac 1 {1 - \alpha}$$</p>
+<h2 id="7-2-并发与并行"><a href="#7-2-并发与并行" class="headerlink" title="7.2 并发与并行"></a>7.2 并发与并行</h2><ul>
+<li>并发：一个通用的概念，表示一个同时具有多个活动的系统。</li>
+<li>并行：利用并发使系统运行得更快。</li>
+</ul>
+<p><strong>并发的层次</strong></p>
+<ul>
+<li>线程级并发</li>
+<li>指令级并发<ul>
+<li>多核处理器</li>
+<li>超线程</li>
+</ul>
+</li>
+<li>单指令、多数据并行<ul>
+<li><code>SIMD</code>并行</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-3-指令架构集、虚拟机"><a href="#7-3-指令架构集、虚拟机" class="headerlink" title="7.3 指令架构集、虚拟机"></a>7.3 指令架构集、虚拟机</h3><ul>
+<li>指令集架构：提供了对CPU硬件的抽象，提供了一种假象：CPU一次只会执行一条指令。<ul>
+<li>不同的硬件实现同一个指令架构集，只是开销和性能不同，但是结果一样。</li>
+</ul>
+</li>
+<li>虚拟机：对整个计算机系统的抽象，包括操作系统、CPU、内存、I/O设备。</li>
+</ul>
+<p><img src="/2021/08/04/CSAPP/1_%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/08.png" alt="计算机系统的抽象表示"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>第一章、计算机系统漫游</p><p><a href="http://example.com/2021/08/04/CSAPP/1_计算机系统漫游/">http://example.com/2021/08/04/CSAPP/1_计算机系统漫游/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Tang Chengming</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-08-04</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-08-05</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/">计算机系统</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/08/04/CppPrimer5th/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%B1%BB%EF%BC%88StrVector%EF%BC%89/"><span class="level-item">拷贝控制示例(Message、Folder)</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Chengming Tang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Chengming Tang</p><p class="is-size-6 is-block">Developer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>江苏 南京</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">13</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">15</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#1-hello-c"><span class="level-left"><span class="level-item">1 hello.c</span></span></a></li><li><a class="level is-mobile" href="#2-计算机系统中信息的表示"><span class="level-left"><span class="level-item">2 计算机系统中信息的表示</span></span></a></li><li><a class="level is-mobile" href="#3-hello-c的编译过程"><span class="level-left"><span class="level-item">3 hello.c的编译过程</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#编译过程的4个阶段"><span class="level-left"><span class="level-item">编译过程的4个阶段</span></span></a></li></ul></li><li><a class="level is-mobile" href="#4-系统的硬件组成"><span class="level-left"><span class="level-item">4 系统的硬件组成</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#CPU工作流程的简单理解"><span class="level-left"><span class="level-item">CPU工作流程的简单理解</span></span></a></li><li><a class="level is-mobile" href="#运行hello的简单流程"><span class="level-left"><span class="level-item">运行hello的简单流程</span></span></a></li></ul></li><li><a class="level is-mobile" href="#5-计算机系统存储器的层次结构"><span class="level-left"><span class="level-item">5 计算机系统存储器的层次结构</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#5-1-高速缓存的设计"><span class="level-left"><span class="level-item">5.1 高速缓存的设计</span></span></a></li><li><a class="level is-mobile" href="#5-2-层次结构特点"><span class="level-left"><span class="level-item">5.2 层次结构特点</span></span></a></li></ul></li><li><a class="level is-mobile" href="#6-操作系统（OS）"><span class="level-left"><span class="level-item">6 操作系统（OS）</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#6-1-操作系统的功能"><span class="level-left"><span class="level-item">6.1 操作系统的功能</span></span></a></li><li><a class="level is-mobile" href="#6-2-操作系统提供的抽象表示"><span class="level-left"><span class="level-item">6.2 操作系统提供的抽象表示</span></span></a></li><li><a class="level is-mobile" href="#6-3-进程"><span class="level-left"><span class="level-item">6.3 进程</span></span></a></li><li><a class="level is-mobile" href="#6-4-线程"><span class="level-left"><span class="level-item">6.4 线程</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#两个优点："><span class="level-left"><span class="level-item">两个优点：</span></span></a></li></ul></li><li><a class="level is-mobile" href="#6-4-虚拟内存"><span class="level-left"><span class="level-item">6.4 虚拟内存</span></span></a></li><li><a class="level is-mobile" href="#6-5-文件"><span class="level-left"><span class="level-item">6.5 文件</span></span></a></li></ul></li><li><a class="level is-mobile" href="#7-重要主题"><span class="level-left"><span class="level-item">7 重要主题</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#7-1-Amdahl定律"><span class="level-left"><span class="level-item">7.1 Amdahl定律</span></span></a></li><li><a class="level is-mobile" href="#7-2-并发与并行"><span class="level-left"><span class="level-item">7.2 并发与并行</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#7-3-指令架构集、虚拟机"><span class="level-left"><span class="level-item">7.3 指令架构集、虚拟机</span></span></a></li></ul></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/C/"><span class="level-start"><span class="level-item">C++</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/C-Primer-5th/"><span class="level-start"><span class="level-item">C++ Primer 5th</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/C-%E9%82%A3%E4%BA%9B%E4%BA%8B/"><span class="level-start"><span class="level-item">C++那些事</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Linux/"><span class="level-start"><span class="level-item">Linux</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"><span class="level-start"><span class="level-item">Linux系统编程</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"><span class="level-start"><span class="level-item">深入理解计算机系统</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%9A%8F%E7%AC%94/"><span class="level-start"><span class="level-item">随笔</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">ChengmingTang个人博客</a><p class="is-size-7"><span>&copy; 2021 Tang Chengming</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
