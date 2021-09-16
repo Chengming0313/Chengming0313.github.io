@@ -412,7 +412,7 @@ button,
 input,
 select,
 textarea {
-  font-family: Consolas, 'Microsoft YaHei', Roboto, 'Open Sans', sans-serif;
+  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif;
 }
 code,
 pre {
@@ -1064,13 +1064,13 @@ a.has-text-grey-lightest:focus {
   font-weight: 700 !important;
 }
 .is-family-primary {
-  font-family: Consolas, 'Microsoft YaHei', Roboto, 'Open Sans', sans-serif !important;
+  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
 }
 .is-family-secondary {
-  font-family: Consolas, 'Microsoft YaHei', Roboto, 'Open Sans', sans-serif !important;
+  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
 }
 .is-family-sans-serif {
-  font-family: Consolas, 'Microsoft YaHei', Roboto, 'Open Sans', sans-serif !important;
+  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
 }
 .is-family-monospace {
   font-family: monospace !important;
@@ -10811,9 +10811,6 @@ article.article .article-meta {
   overflow-x: auto;
   margin-bottom: 0.5rem;
 }
-article.article .highlight-body {
-  font-size: 12px;
-}
 article.article .content {
   word-wrap: break-word;
   font-size: 1.1rem;
@@ -10836,27 +10833,17 @@ article.article .content h5 {
 article.article .content pre {
   font-size: 0.85em;
 }
-article.article .content p {
-  margin: 1em 0;
-}
 article.article .content code {
   padding: 0;
   background: transparent;
-  background: #e3e3e3;
-  color: #333;
-  padding: 0.125em 0.4em;
-  margin: 0.015em;
-  border-radius: 2px;
   overflow-wrap: break-word;
 }
-article.article .content img.pullquote,
 article.article .content blockquote.pullquote {
   float: right;
   max-width: 50%;
   font-size: 1.15rem;
   position: relative;
 }
-article.article .content img footer strong + cite,
 article.article .content blockquote footer strong + cite {
   margin-left: 0.5em;
 }
@@ -10866,6 +10853,10 @@ article.article .content .message.message-immersive {
 }
 article.article .content .message.message-immersive .message-body {
   border: none;
+}
+article.article .article-tags {
+  display: flex;
+  flex-wrap: wrap;
 }
 .rtl {
   direction: rtl;
@@ -11594,7 +11585,7 @@ figure.highlight .section {
 .cc-window,
 .cc-revoke {
   font-size: 1.1rem !important;
-  font-family: Consolas, 'Microsoft YaHei', Roboto, 'Open Sans', sans-serif !important;
+  font-family: Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
 }
 .cc-window {
   color: #4a4a4a !important;
@@ -11637,8 +11628,8 @@ figure.highlight .section {
 @media screen and (min-width: 1280px) {
   .is-1-column .container,
   .is-2-column .container {
-    max-width: 1152px;
-    width: 1152px;
+    max-width: 960px;
+    width: 960px;
   }
 }
 @media screen and (min-width: 1472px) {
